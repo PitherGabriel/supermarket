@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { FaSearch, FaBars, FaShoppingBasket, FaMapMarkerAlt } from 'react-icons/fa';
-
 import EmblaCarousel from './EmblaCarousel';
 
 function App() {
@@ -10,11 +9,11 @@ function App() {
 
   // Fetch data from our Node backend
   useEffect(() => {
-    fetch('http://localhost:5000/api/categories')
+    fetch('https://supermarket-cfwf.onrender.com/api/categories')
       .then(res => res.json())
       .then(data => setCategories(data));
 
-    fetch('http://localhost:5000/api/offers')
+    fetch('https://supermarket-cfwf.onrender.com/api/offers')
       .then(res => res.json())
       .then(data => setOffers(data));
   }, []);
