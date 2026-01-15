@@ -23,7 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 
+# Python
+/env
+/utils
 # Data
-
+/images
 /server/CategoriasProductos.xls
 /server/Productos2026.xls

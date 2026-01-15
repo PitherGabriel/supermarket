@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -6,7 +8,8 @@ const PORT = 5000;
 app.use(cors()); // Allow frontend to fetch data
 app.use(express.json());
 
-// --- Mock Data (Database Replacement) ---
+const supabase = require('./supabaseClient');
+
 
 const categories = [
   { id: 1, label: "Comida y bebidas", icon: "🍎", color: "#008631" },
@@ -53,14 +56,35 @@ const weeklyOffers = [
 
 // --- Routes ---
 
-app.get('/api/categories', (req, res) => {
-  res.json(categories);
+app.get('/api/categories', async (req, res) => {
+  const { data, error } = await supabase
+    .from('Categorias')
+    .select('*')
+    .order('id');
+    console.log(data)
+
+  if (error) {
+    console.log(error.message)
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json(data);
 });
 
-app.get('/api/offers', (req, res) => {
-  res.json(weeklyOffers);
-});
+app.get('/api/offers', async (req, res) => {
+  const { data, error } = await supabase
+    .from('Banners')
+    .select('*')
+    .order('id');
+    console.log(data)
 
+  if (error) {
+    console.log(error.message)
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json(data);
+});
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
