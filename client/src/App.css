@@ -33,10 +33,26 @@ body {
 /* Navbar */
 .navbar {
   background-color: rgb(255, 255, 255);
-  /* Deep Blue base */
-  padding: 2rem 0rem;
+  padding: 1rem 0rem;
   color: rgb(28, 114, 68);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  /* Add this */
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+  /* Add this */
+}
+
+.navbar-visible {
+  transform: translateY(0);
+}
+
+.navbar-hidden {
+  transform: translateY(-100%);
 }
 
 .nav-container {
@@ -51,13 +67,8 @@ body {
   cursor: pointer;
 }
 
-.logo-accent {
-  color: #E30613;
-  /* Red accent */
-}
-
 .logo-image {
-  height: 90px;
+  height: 70px;
   width: auto;
   display: block;
 }
@@ -66,7 +77,7 @@ body {
   position: absolute;
   left: calc(50% + 30px);
   transform: translateX(-50%);
-  width: min(500px, calc(100% - 24px)) ;
+  width: min(500px, calc(100% - 24px));
   display: flex;
   align-items: center;
 }
@@ -96,19 +107,112 @@ body {
   align-items: center;
   font-size: 2rem;
   cursor: pointer;
+  transition: transform 0.2s;
 }
+
+.nav-icons:hover {
+  transform: scale(1.1);
+}
+
+/* Sidebar*/
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -450px;
+  /* Escondido a la derecha */
+  width: 450px;
+  height: 100vh;
+  background-color: white;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  transition: right 0.3s ease-in-out;
+  z-index: 2000;
+  overflow-y: auto;
+}
+
+.sidebar-open {
+  right: 0;
+  /* Se muestra */
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  background-color: rgb(255, 255, 255);
+  color: rgb(26, 94, 35);
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.sidebar-close {
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.sidebar-close:hover {
+  transform: scale(1.2);
+}
+
+.sidebar-content {
+  padding: 2rem;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  margin-bottom: 1.5rem;
+}
+
+.sidebar-menu li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.1rem;
+  display: block;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.sidebar-menu li a:hover {
+  background-color: rgb(128, 13, 13);
+  color: white;
+}
+
+/* Overlay oscuro de fondo */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1500;
+  cursor: pointer;
+}
+
 
 /* Categories */
 .categories-section {
+  margin-top: 100px;
+  /* Ajusta según la altura de tu navbar */
   padding: 3rem 0;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
 }
 
 .category-grid {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 120px;
+  gap: 50px;
 }
 
 .category-item {
@@ -118,13 +222,13 @@ body {
   width: 100px;
   text-align: center;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #262929;
 }
 
 .category-icon {
-  width: 160px;
-  height: 160px;
+  width: 120px;
+  height: 120px;
   border-radius: 0;
   display: flex;
   align-items: center;
@@ -132,10 +236,8 @@ body {
   font-size: 2rem;
   color: white;
   margin-bottom: 10px;
-  transition: transform 0.2s;
+  transition: transform 0.1s;
 }
-
-
 
 .category-icon:hover {
   transform: scale(1.2);
@@ -149,6 +251,9 @@ body {
 
 /* Offers Grid */
 .offers-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   padding: 3rem 0;
 }
 
@@ -233,7 +338,7 @@ body {
   padding: 0rem 0;
   max-width: 100%;
   margin: 0;
-  --slide-height: 35rem;
+  --slide-height: 25rem;
   --slide-spacing: 5rem;
   --slide-size: 90%;
 }
@@ -359,10 +464,11 @@ body {
 .footer {
   text-align: center;
   padding: 2rem;
-  background-color: #ffffff;
+  background-color: #cfcfcf;
   color: rgb(0, 0, 0);
   margin-top: 2rem;
 }
+
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
@@ -395,7 +501,7 @@ body {
   }
 
   .logo-image {
-    height: 70px;
+    height: 40px;
     width: auto;
     display: block;
   }
@@ -404,6 +510,7 @@ body {
     width: 70px;
     height: 70px;
   }
+
   .category-item {
     display: flex;
     flex-direction: column;
