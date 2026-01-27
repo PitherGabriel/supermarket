@@ -15,7 +15,7 @@ export default function CategoryPage() {
 
     // Fetch data from our Node backend
     useEffect(() => {
-        fetch('http://https://supermarket-cfwf.onrender.com/api/categories')
+        fetch('https://supermarket-cfwf.onrender.com/api/categories')
             .then(res => res.json())
             .then(data => {
                 const found = data.find(c => c.slug === slug);
@@ -25,7 +25,7 @@ export default function CategoryPage() {
 
     useEffect(() => {
         if (!category) return;
-        fetch(`http://https://supermarket-cfwf.onrender.com/api/offers/products/${encodeURIComponent(category.nombre.toUpperCase())}`)
+        fetch(`https://supermarket-cfwf.onrender.com/api/offers/products/${encodeURIComponent(category.nombre.toUpperCase())}`)
             .then(res => res.json())
             .then(data => setOffers(data));
     }, [category]);

@@ -11,11 +11,11 @@ function HomePage() {
 
     // Fetch data from our Node backend
     useEffect(() => {
-        fetch('http://https://supermarket-cfwf.onrender.com/api/categories')
+        fetch('https://supermarket-cfwf.onrender.com/api/categories')
             .then(res => res.json())
             .then(data => setCategories(data));
 
-        fetch('http://https://supermarket-cfwf.onrender.com/api/offers')
+        fetch('https://supermarket-cfwf.onrender.com/api/offers')
             .then(res => res.json())
             .then(data => setOffers(data));
     }, []);
