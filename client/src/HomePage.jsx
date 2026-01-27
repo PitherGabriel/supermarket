@@ -36,7 +36,7 @@ function HomePage() {
                         {categories.map((cat) => (
                             <div key={cat.id} className="category-item">
                                 <div className="icon">
-                                    <Link to={`/${cat.slug}`}>
+                                    <Link to={`categoria/${cat.slug}`}>
                                         <img
                                             src={cat.icono}
                                             className="category-icon"

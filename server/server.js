@@ -88,3 +88,26 @@ app.get('/api/offers', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+app.get('/api/offers/products/:category', async (req, res) => {
+  console.log("Received...")
+  const {category}=req.params;
+
+  const { data, error } = await supabase
+    .from('Catalogo')
+    .select('*')
+    .eq('Categoria', category)
+    .order('id');
+    console.log(data)
+    
+  if (error) {
+    console.log(error.message)
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json(data);
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
