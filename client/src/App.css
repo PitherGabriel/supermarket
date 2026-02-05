@@ -3,12 +3,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
   background-color: #ffffff;
-  color: #706f6f;
+  color: #b6b0b0;
 }
 
 /* Utility Bar */
@@ -17,7 +16,7 @@ body {
   border-bottom: 1px solid #ddd;
   padding: 0px 0;
   font-size: 0.85rem;
-  color: #555;
+  color: #141414;
 }
 
 .utility-bar .container {
@@ -35,7 +34,7 @@ body {
   background-color: rgb(255, 255, 255);
   padding: 1rem 0rem;
   color: rgb(28, 114, 68);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   width: 100%;
   position: fixed;
   top: 0;
@@ -223,7 +222,8 @@ body {
   text-align: center;
   cursor: pointer;
   font-size: 1rem;
-  color: #262929;
+  color: #1f2020;
+  font-weight: bold;
 }
 
 .category-icon {
@@ -236,11 +236,11 @@ body {
   font-size: 2rem;
   color: white;
   margin-bottom: 10px;
-  transition: transform 0.1s;
+  transition: transform 0.3s;
 }
 
 .category-icon:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .category-icon span {
@@ -376,6 +376,24 @@ body {
   flex: 0 0 calc(115% + (var(--slide-spacing) * 2));
   object-fit: cover;
 }
+
+/* Offers */
+
+/* Categories */
+.main-offers-section {
+  display: flex;
+  margin-top: 40px;
+  /* Ajusta según la altura de tu navbar */
+  justify-content: center;
+  color: #1f2020;
+  background-color: rgb(255, 255, 255);
+}
+.section-title {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+
 
 /* Footer */
 .footer {

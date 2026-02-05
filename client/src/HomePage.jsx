@@ -11,11 +11,11 @@ function HomePage() {
 
     // Fetch data from our Node backend
     useEffect(() => {
-        fetch('https://supermarket-cfwf.onrender.com/api/categories')
+        fetch('http://localhost:5000/api/categories')
             .then(res => res.json())
             .then(data => setCategories(data));
 
-        fetch('https://supermarket-cfwf.onrender.com/api/offers')
+        fetch('http://localhost:5000/api/offers')
             .then(res => res.json())
             .then(data => setOffers(data));
     }, []);
@@ -55,7 +55,7 @@ function HomePage() {
             {/*Carousel*/}
             <EmblaCarousel slides={offers} options={OPTIONS} />
             {/* Weekly Offers Grid */}
-            <section className="offers-section">
+            <section className="main-offers-section">
                 <div className="container">
                     <h2 className="section-title">Descubre nuestras ofertas</h2>
                     <div className="offers-grid">
