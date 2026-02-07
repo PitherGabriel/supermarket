@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: #ffffff;
+  background-color: rgb(255, 255, 255);
   color: #b6b0b0;
 }
 
@@ -33,7 +33,7 @@ body {
 .navbar {
   background-color: rgb(255, 255, 255);
   padding: 1rem 0rem;
-  color: rgb(28, 114, 68);
+  color: rgb(136, 21, 21);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   width: 100%;
   position: fixed;
@@ -200,18 +200,33 @@ body {
 
 
 /* Categories */
+.category-title {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  color: #141414;
+  align-items: center;
+  height: 100px;
+  background-color: rgb(255, 255, 255);
+  
+
+}
+
 .categories-section {
-  margin-top: 100px;
+  display: flex;
+  justify-content: center;
   /* Ajusta según la altura de tu navbar */
   padding: 3rem 0;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(160, 167, 255);
 }
 
 .category-grid {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 50px;
+  gap: 70px;
+  
+  
 }
 
 .category-item {
@@ -388,6 +403,7 @@ body {
   color: #1f2020;
   background-color: rgb(255, 255, 255);
 }
+
 .section-title {
   display: flex;
   justify-content: center;

@@ -3,7 +3,8 @@ import './App.css';
 import { Link } from 'react-router-dom';
 import EmblaCarousel from './EmblaCarousel';
 import Header from './Header';
-
+import Slider from './slider';
+import './slider.css';
 
 function HomePage() {
     const [categories, setCategories] = useState([]);
@@ -11,11 +12,11 @@ function HomePage() {
 
     // Fetch data from our Node backend
     useEffect(() => {
-        fetch('https://supermarket-cfwf.onrender.com/api/categories')
+        fetch('http://localhost:5000/api/categories')
             .then(res => res.json())
             .then(data => setCategories(data));
 
-        fetch('https://supermarket-cfwf.onrender.com/api/offers')
+        fetch('http://localhost:5000/api/offers')
             .then(res => res.json())
             .then(data => setOffers(data));
     }, []);
@@ -24,12 +25,45 @@ function HomePage() {
     const SLIDE_COUNT = 3
     const SLIDES = offers
 
+    // Custom options (optional)
+    const sliderOptions = {
+        type: 'carousel', // or 'slider'
+        startAt: 0,
+        perView: 1,
+        gap: 20,
+        autoplay: 5000, // auto-advance every 3 seconds
+        hoverpause: true,
+        breakpoints: {
+            1024: { perView: 2 },
+            600: { perView: 1 }
+        }
+    }
+
     return (
         <div className="app">
             {/* Header Section (Circular Icons) */}
             <Header></Header>
+            {offers.length > 0 && (
+                <div className="slider-example">
+                    <Slider options={sliderOptions}>
+                        {offers.map((offer, index) => (
+                            <div className="slide-content" key={index}>
+                                <div
+                                    className="slide-bg"
+                                    style={{ backgroundImage: `url(${offer.image_url})` }}
+                                />
+                                <img
+                                    src={offer.image_url}
+                                    alt={offer.title || `Slide ${index + 1}`}
+                                />
+                            </div>
+                        ))}
+                    </Slider>
+                </div>
+            )}
 
             {/* Categories Section (Circular Icons) */}
+            <div className='category-title'><h1>Categorias destacadas</h1></div>
             <section className="categories-section">
                 <div className="container">
                     <div className="category-grid">
@@ -52,8 +86,9 @@ function HomePage() {
                 </div>
             </section>
 
+
             {/*Carousel*/}
-            <EmblaCarousel slides={offers} options={OPTIONS} />
+            {/*<EmblaCarousel slides={offers} options={OPTIONS} />*/}
             {/* Weekly Offers Grid */}
             <section className="main-offers-section">
                 <div className="container">
