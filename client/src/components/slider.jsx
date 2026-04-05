@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import Glide from '@glidejs/glide';
+import './slider.css'
 import '@glidejs/glide/dist/css/glide.core.min.css';
 import '@glidejs/glide/dist/css/glide.theme.min.css';
 

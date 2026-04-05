@@ -1,0 +1,616 @@
+/* ═══════════════════════════════════════════════════════════
+   HEADER TOKENS  (extend App.css :root if already imported)
+═══════════════════════════════════════════════════════════ */
+:root {
+    --nav-h: 100px;
+    --nav-h-mobile: 100px;
+    --red-light: #ffeef3;
+    --red-dark: #b8000e;
+    --blue: #0057d9;
+    --text-primary: #1a1a2e;
+    --text-secondary: #52526e;
+    --text-muted: #9898b0;
+    --surface: #ffffff;
+    --border: #e4e4ee;
+    --bg: #f4f4f8;
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, .09);
+    --shadow-lg: 0 10px 40px rgba(0, 0, 0, .13);
+    --transition: 0.22s cubic-bezier(.4, 0, .2, 1);
+    --sidebar-w: 380px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ROOT WRAPPER
+═══════════════════════════════════════════════════════════ */
+.header-root {
+    /* gives the sidebar & overlay a positioning context */
+    position: relative;
+    z-index: 1000;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════════════════════════ */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--nav-h);
+    background: var(--surface);
+    box-shadow: var(--shadow-md);
+    z-index: 1000;
+    transition:
+        transform 0.32s cubic-bezier(.4, 0, .2, 1),
+        background 0.3s ease,
+        backdrop-filter 0.3s ease,
+        box-shadow 0.3s ease;
+
+    /* Safe area for iPhone notch / Dynamic Island */
+    padding-top: env(safe-area-inset-top);
+}
+
+/* Blur + slight transparency once user scrolls */
+.navbar-scrolled {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 2px 24px rgba(0, 0, 0, .12);
+}
+
+.navbar-visible {
+    transform: translateY(0);
+}
+
+.navbar-hidden {
+    transform: translateY(-110%);
+}
+
+/* ── Scroll progress bar ── */
+.scroll-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--red), #ff6b35);
+    border-radius: 0 2px 2px 0;
+    transition: width 0.1s linear;
+    pointer-events: none;
+}
+
+/* ── Nav container ── */
+.nav-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 2rem;
+    gap: 1.25rem;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LOGO
+═══════════════════════════════════════════════════════════ */
+.logo {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-image {
+    height: 65px;
+    width: auto;
+    display: block;
+
+    /* Entry animation on mount */
+    animation: logoEntry 0.6s cubic-bezier(.34, 1.56, .64, 1) both;
+    transform-origin: center;
+    transition: transform var(--transition), filter var(--transition);
+    will-change: transform;
+}
+
+/*.logo:hover .logo-image {
+  transform: scale(1.06);
+  filter: drop-shadow(0 4px 10px rgba(227,6,19,.25));
+}*/
+
+/* Bounce on click/tap */
+.logo-image.logo-bounce {
+    animation: logoBounce 0.65s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes logoEntry {
+    0% {
+        opacity: 0;
+        transform: scale(0.78) translateY(-8px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes logoBounce {
+    0% {
+        transform: scale(1);
+    }
+
+    20% {
+        transform: scale(0.88) rotate(-3deg);
+    }
+
+    50% {
+        transform: scale(1.12) rotate(2deg);
+    }
+
+    75% {
+        transform: scale(0.96) rotate(-1deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DESKTOP SEARCH BAR
+═══════════════════════════════════════════════════════════ */
+.search-bar {
+    flex: 1;
+    max-width: 480px;
+    margin: 1 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.desktop-search {
+    /* hide on small screens — shown via media query */
+}
+
+.search-icon-left {
+    position: absolute;
+    left: 14px;
+    color: var(--text-muted);
+    display: flex;
+    pointer-events: none;
+}
+
+.search-bar input,
+.mobile-search-form input {
+    width: 100%;
+    padding: 11px 90px 11px 42px;
+    border: 2px solid var(--border);
+    border-radius: 999px;
+    outline: none;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    background: var(--bg);
+    transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.search-bar input:focus,
+.mobile-search-form input:focus {
+    border-color: var(--blue);
+    background: var(--surface);
+    box-shadow: 0 0 0 4px rgba(0, 87, 217, .12);
+}
+
+.search-btn {
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    right: 6px;
+    padding: 6px 16px;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+
+    transform: scale(1.04);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NAV RIGHT ICONS
+═══════════════════════════════════════════════════════════ */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+/* Shared icon button */
+.icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: background var(--transition), color var(--transition), transform var(--transition);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.icon-btn:hover {
+    background: var(--bg);
+    color: var(--red-light);
+}
+
+.icon-btn:active {
+    transform: scale(0.9);
+}
+
+/* ── Animated hamburger ── */
+.hamburger {
+    flex-direction: column;
+    gap: 5px;
+    padding: 12px;
+    width: 44px;
+    height: 44px;
+}
+
+.bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition:
+        transform 0.35s cubic-bezier(.4, 0, .2, 1),
+        opacity 0.25s ease,
+        width 0.25s ease;
+    transform-origin: center;
+}
+
+/* Morphs into × when sidebar is open */
+.hamburger.is-open .bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.is-open .bar:nth-child(2) {
+    opacity: 0;
+    width: 0;
+}
+
+.hamburger.is-open .bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Hide mobile search btn on desktop */
+.mobile-search-btn {
+    display: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE SEARCH PANEL (slides down under navbar)
+═══════════════════════════════════════════════════════════ */
+.mobile-search-panel {
+    position: fixed;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    z-index: 999;
+    box-shadow: var(--shadow-md);
+
+    /* slide-down animation */
+    transform: translateY(-110%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.28s cubic-bezier(.4, 0, .2, 1), opacity 0.2s ease;
+}
+
+.mobile-search-panel.panel-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.mobile-search-form {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.mobile-search-form input {
+    padding: 10px 44px 10px 42px;
+}
+
+.clear-btn {
+    position: absolute;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--text-muted);
+    border-radius: 50%;
+    transition: background var(--transition), color var(--transition);
+}
+
+.clear-btn:hover {
+    background: var(--bg);
+    color: var(--text-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SIDEBAR OVERLAY
+═══════════════════════════════════════════════════════════ */
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 30, 0.55);
+    z-index: 1998;
+    cursor: pointer;
+    animation: fadeIn 0.25s ease;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════════════════════ */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: calc(-1 * var(--sidebar-w));
+    width: var(--sidebar-w);
+    max-width: 100vw;
+    height: 100dvh;
+    /* dynamic viewport height — respects mobile browser chrome */
+    background: var(--surface);
+    box-shadow: var(--shadow-lg);
+    z-index: 1999;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    display: flex;
+    flex-direction: column;
+
+    transition: right 0.35s cubic-bezier(.4, 0, .2, 1);
+
+    /* Safe area for notch */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.sidebar-open {
+    right: 0;
+}
+
+/* ── Sidebar header ── */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.sidebar-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.sidebar-close {
+    color: var(--text-muted);
+}
+
+.sidebar-close:hover {
+    color: var(--red);
+    background: #fff0f0;
+}
+
+/* ── Sidebar body ── */
+.sidebar-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 0;
+}
+
+/* ── Group sections ── */
+.sidebar-group {
+    padding: 0.5rem 0;
+}
+
+.sidebar-group-label {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0.5rem 1.5rem 0.5rem;
+}
+
+.sidebar-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0.5rem 1.5rem;
+}
+
+/* ── Menu list ── */
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    /* staggered entrance */
+    animation: slideInRight 0.35s cubic-bezier(.4, 0, .2, 1) both;
+    animation-delay: calc(var(--item-index, 0) * 45ms);
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ── Individual link ── */
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.7rem 1.5rem;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 0;
+    transition: background var(--transition), color var(--transition), padding-left var(--transition);
+    position: relative;
+}
+
+.sidebar-link:hover {
+    background: var(--bg);
+    color: var(--red-light);
+    padding-left: 1.85rem;
+}
+
+.sidebar-link:active {
+    background: #fff0f0;
+}
+
+/* Chevron pushed to the end */
+.sidebar-link svg:last-child {
+    margin-left: auto;
+    opacity: 0.35;
+    flex-shrink: 0;
+    transition: transform var(--transition), opacity var(--transition);
+}
+
+.sidebar-link:hover svg:last-child {
+    transform: translateX(3px);
+    opacity: 0.7;
+}
+
+/* Red left border on hover */
+.sidebar-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 20%;
+    bottom: 20%;
+    width: 3px;
+    background: var(--red);
+    border-radius: 0 2px 2px 0;
+    transform: scaleY(0);
+    transition: transform var(--transition);
+}
+
+.sidebar-link:hover::before {
+    transform: scaleY(1);
+}
+
+/* Category icon in sidebar */
+.sidebar-cat-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: var(--bg);
+    padding: 3px;
+    flex-shrink: 0;
+}
+
+/* Page links (no icon) — slightly muted */
+.sidebar-link--page {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* ── Sidebar footer ── */
+.sidebar-footer {
+    flex-shrink: 0;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .navbar {
+        height: var(--nav-h-mobile);
+    }
+
+    .mobile-search-panel {
+        top: var(--nav-h-mobile);
+    }
+
+    .logo-image {
+        height: 38px;
+    }
+
+    .nav-container {
+        padding: 0 1rem;
+        gap: 0.5rem;
+    }
+
+    /* Hide desktop search, show mobile search button */
+    .desktop-search {
+        display: none;
+    }
+
+    .mobile-search-btn {
+        display: flex;
+    }
+
+    /* Full-width sidebar on mobile */
+    .sidebar-w: 100vw;
+
+    .sidebar {
+        width: 100vw;
+        right: -100vw;
+    }
+
+    .sidebar-link {
+        padding: 0.85rem 1.25rem;
+        font-size: 1rem;
+    }
+
+    .sidebar-link:hover {
+        padding-left: 1.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .promo-strip {
+        font-size: 0.7rem;
+    }
+}
